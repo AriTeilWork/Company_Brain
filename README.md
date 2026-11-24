@@ -23,5 +23,4 @@ Install the .NET 11 SDK, then run from the repository root:
 dotnet run --project desktop/CompanyBrain.Client.csproj
 ```
 
-See [desktop setup and VS Code instructions](desktop/README.md) and
-[UI verification and screenshots](docs/desktop-ui-qa.md).
+See [desktop setup and VS Code instructions](desktop/README.md).

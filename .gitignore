@@ -1,12 +1,9 @@
-# Local tooling and package caches
 .local/
 
-# .NET build outputs
 **/bin/
 **/obj/
 **/.dist/
 
-# IDE files
 .vs/
 .idea/
 *.user

@@ -64,9 +64,8 @@ their own processes using the system .NET installation.
 .NET 11. The debugger uses the system .NET installation. The build task uses
 `dotnet.ps1`, with its local-SDK preference and installed-SDK fallback.
 
-Backend code belongs in [`../backend/`](../backend/). Shared documentation,
-including the [UI verification report](../docs/desktop-ui-qa.md), belongs in
-[`../docs/`](../docs/).
+Backend code belongs in [`../backend/`](../backend/). Shared documentation belongs
+in [`../docs/`](../docs/).
 
 This is a visual prototype; backend integration is not configured yet.
 Only the free framework packages and CommunityToolkit are referenced. Optional

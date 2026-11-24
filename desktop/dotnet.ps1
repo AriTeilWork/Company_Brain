@@ -1,4 +1,3 @@
-# Use the project-local SDK when available, otherwise use an installed SDK.
 $ErrorActionPreference = 'Stop'
 $repositoryRoot = Split-Path -Parent $PSScriptRoot
 $localSdkRoot = Join-Path $repositoryRoot '.local\dotnet-sdk'
