@@ -1,0 +1,62 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:CompanyBrain.Client.ViewModels"
+        xmlns:views="using:CompanyBrain.Client.Views"
+        x:Class="CompanyBrain.Client.Views.MainWindow" x:DataType="vm:MainViewModel"
+        Title="Company Brain · Ember Island IT Services" Icon="/Assets/avalonia-logo.ico"
+        Width="1440" Height="810" MinWidth="1100" MinHeight="700" WindowStartupLocation="CenterScreen"
+        WindowDecorations="BorderOnly" ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaTitleBarHeightHint="0">
+    <Design.DataContext><vm:MainViewModel /></Design.DataContext>
+    <Grid ColumnDefinitions="294,*">
+        <Border Background="{StaticResource SidebarBrush}">
+            <Grid RowDefinitions="120,*,Auto">
+                <Grid ColumnDefinitions="42,14,*" Margin="24,26,18,0" VerticalAlignment="Top">
+                    <Path Data="{StaticResource FlameIcon}" Fill="#F15A0B" Width="40" Height="52" Stretch="Uniform" VerticalAlignment="Top" />
+                    <StackPanel Grid.Column="2" Spacing="5" Margin="0,2,0,0">
+                        <TextBlock Text="Company Brain" Foreground="#F7FAFC" FontSize="27" FontWeight="Bold" LetterSpacing="-0.7" />
+                        <TextBlock Text="Ember Island IT Services" Foreground="#DFE6EB" FontSize="17" />
+                    </StackPanel>
+                </Grid>
+                <StackPanel Grid.Row="1" Spacing="2">
+                    <Button Classes="nav" Classes.active="{Binding IsDevices}" Command="{Binding NavigateCommand}" CommandParameter="Devices" AutomationProperties.Name="Devices">
+                        <Grid ColumnDefinitions="30,20,*"><Path Data="{StaticResource LaptopIcon}" Stroke="#F6FAFC" StrokeThickness="1.6" Width="29" Height="25" Stretch="Uniform" /><TextBlock Grid.Column="2" Text="Devices" VerticalAlignment="Center" /></Grid>
+                    </Button>
+                    <Button Classes="nav" Classes.active="{Binding IsCustomers}" Command="{Binding NavigateCommand}" CommandParameter="Customers" AutomationProperties.Name="Customers">
+                        <Grid ColumnDefinitions="30,20,*"><Path Data="{StaticResource CustomersIcon}" Stroke="#F6FAFC" StrokeThickness="1.6" Width="29" Height="29" Stretch="Uniform" /><TextBlock Grid.Column="2" Text="Customers" VerticalAlignment="Center" /></Grid>
+                    </Button>
+                    <Button Classes="nav" Classes.active="{Binding IsGuides}" Command="{Binding NavigateCommand}" CommandParameter="Guides" AutomationProperties.Name="Support guides">
+                        <Grid ColumnDefinitions="30,20,*"><Path Data="{StaticResource GuidesIcon}" Stroke="#F6FAFC" StrokeThickness="1.6" Width="29" Height="29" Stretch="Uniform" /><TextBlock Grid.Column="2" Text="Support guides" VerticalAlignment="Center" /></Grid>
+                    </Button>
+                    <Button Classes="nav" Classes.active="{Binding IsAsk}" Command="{Binding NavigateCommand}" CommandParameter="Ask" AutomationProperties.Name="Ask">
+                        <Grid ColumnDefinitions="30,20,*"><Path Data="{StaticResource AskIcon}" Stroke="#F6FAFC" StrokeThickness="1.6" Width="29" Height="29" Stretch="Uniform" /><TextBlock Grid.Column="2" Text="Ask" VerticalAlignment="Center" /></Grid>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+        <Grid Grid.Column="1">
+            <views:DevicesView IsVisible="{Binding IsDevices}" />
+            <views:CustomersView IsVisible="{Binding IsCustomers}" />
+            <views:GuidesView IsVisible="{Binding IsGuides}" />
+            <views:AskView IsVisible="{Binding IsAsk}" />
+            <Border IsVisible="{Binding HasNotice}" Classes="card" Padding="18,12" Margin="24" VerticalAlignment="Bottom" HorizontalAlignment="Right" MaxWidth="650" BoxShadow="0 5 22 0 #200B141F">
+                <Grid ColumnDefinitions="*,16,Auto">
+                    <TextBlock Text="{Binding Notice}" FontSize="15" TextWrapping="Wrap" VerticalAlignment="Center" />
+                    <Button Grid.Column="2" Classes="dismiss" Content="Dismiss" Command="{Binding DismissNoticeCommand}" />
+                </Grid>
+            </Border>
+            <Grid Height="32" VerticalAlignment="Top" ColumnDefinitions="*,46,46,46" Background="Transparent"
+                  PointerPressed="OnTitleBarPointerPressed">
+                <Button x:Name="MinimizeButton" Grid.Column="1" Classes="caption" Click="OnMinimize" ToolTip.Tip="Minimize" AutomationProperties.Name="Minimize window">
+                    <Viewbox Width="15" Height="15"><Canvas Width="24" Height="24"><Path Data="{StaticResource MinimizeIcon}" Stroke="#52606B" StrokeThickness="1.5" /></Canvas></Viewbox>
+                </Button>
+                <Button x:Name="MaximizeButton" Grid.Column="2" Classes="caption" Click="OnToggleMaximize" ToolTip.Tip="Maximize / Restore" AutomationProperties.Name="Maximize or restore window">
+                    <Path x:Name="MaximizeGlyph" Data="{StaticResource MaximizeIcon}" Stroke="#52606B" StrokeThickness="1.5" Width="12" Height="12" Stretch="Uniform" />
+                </Button>
+                <Button x:Name="CloseButton" Grid.Column="3" Classes="caption close" Click="OnClose" ToolTip.Tip="Close" AutomationProperties.Name="Close window">
+                    <Path Data="{StaticResource CloseIcon}" Stroke="#52606B" StrokeThickness="1.6" Width="15" Height="15" Stretch="Uniform" />
+                </Button>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

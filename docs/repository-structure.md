@@ -8,9 +8,19 @@ Company_Brain/
 ├── backend/
 │   └── README.md
 ├── desktop/
-│   └── README.md
+│   ├── README.md
+│   ├── CompanyBrain.Client.csproj
+│   ├── CompanyBrain.Client.sln
+│   ├── App.axaml
+│   ├── Views/
+│   ├── ViewModels/
+│   ├── Styles/
+│   ├── Assets/
+│   └── .vscode/
 └── docs/
-    └── repository-structure.md
+    ├── repository-structure.md
+    ├── desktop-ui-qa.md
+    └── screenshots/
 ```
 
 | Directory | Responsibility |
@@ -26,4 +36,7 @@ Company_Brain/
 - Document component-specific setup in that component's README.
 - Keep documentation that applies to the whole project inside `docs/`, linked from the root README.
 
-Each component directory starts with a README so the intended structure is present in Git before implementation begins.
+The Avalonia desktop project lives directly in `desktop/`. Its project and
+solution retain the `CompanyBrain.Client` name; this does not introduce a
+separate top-level `client/` directory. Generated outputs (`bin/`, `obj/`,
+`.dist/`) and local tooling (`.local/`) are ignored by Git.

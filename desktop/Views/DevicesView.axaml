@@ -1,0 +1,74 @@
+<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:CompanyBrain.Client.ViewModels" x:Class="CompanyBrain.Client.Views.DevicesView" x:DataType="vm:MainViewModel">
+    <Grid Margin="26,38,26,39" RowDefinitions="Auto,24,Auto,30,*">
+        <TextBlock Classes="pageTitle" Text="Devices" />
+        <Grid Grid.Row="2" ColumnDefinitions="*,18,124,110">
+            <Border Classes="searchBox">
+                <Grid ColumnDefinitions="24,*">
+                    <Path Data="{StaticResource SearchIcon}" Stroke="#444F59" StrokeThickness="1.7" Width="22" Height="22" Stretch="Uniform" />
+                    <TextBox Grid.Column="1" Classes="searchInput" Text="{Binding DeviceQuery}" PlaceholderText="Search devices…" AutomationProperties.Name="Search devices" />
+                </Grid>
+            </Border>
+            <Button Grid.Column="2" Content="Search" Command="{Binding PlaceholderCommand}" CommandParameter="Search" />
+        </Grid>
+        <Grid Grid.Row="4" ColumnDefinitions="3.05*,16,6.95*">
+            <Border Classes="card" ClipToBounds="True">
+                <Grid RowDefinitions="Auto,*">
+                    <TextBlock Classes="sectionTitle" Text="Results" Margin="16,15,16,14" />
+                    <ListBox Grid.Row="1" Classes="results" ItemsSource="{Binding Devices}" SelectedItem="{Binding SelectedDevice, Mode=TwoWay}" AutomationProperties.Name="Device results">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate x:DataType="vm:DevicePreview">
+                                <StackPanel Spacing="3">
+                                    <TextBlock Text="{Binding Id}" FontSize="23" FontWeight="Bold" />
+                                    <TextBlock Text="{Binding Model}" FontSize="20" Classes="muted" TextWrapping="Wrap" />
+                                    <TextBlock Text="{Binding Status}" FontSize="20" Classes="muted" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </Border>
+            <Border Grid.Column="2" Classes="card" Padding="20,15,20,15">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <TextBlock Text="{Binding SelectedDevice.Id}" Classes="detailTitle" />
+                        <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,3,0,22">
+                            <TextBlock Text="{Binding SelectedDevice.Model}" Classes="muted" FontSize="22" />
+                            <TextBlock Text="·" Classes="muted" />
+                            <TextBlock Text="{Binding SelectedDevice.Status}" Classes="muted" FontSize="22" />
+                        </StackPanel>
+                        <Border Classes="card" ClipToBounds="True">
+                            <StackPanel>
+                                <Border Classes="tableRow"><Grid ColumnDefinitions="2*,3*">
+                                    <TextBlock Classes="tableLabel" Text="Customer" />
+                                    <Button Grid.Column="1" Classes="link" Command="{Binding NavigateCommand}" CommandParameter="Customers"><TextBlock Text="West Quay Accounting" TextDecorations="Underline" TextWrapping="Wrap" FontSize="19" /></Button>
+                                </Grid></Border>
+                                <Border Classes="tableRow"><Grid ColumnDefinitions="2*,3*"><TextBlock Classes="tableLabel" Text="Device ID" /><TextBlock Grid.Column="1" Text="{Binding SelectedDevice.Id}" FontSize="19" /></Grid></Border>
+                                <Border Classes="tableRow"><Grid ColumnDefinitions="2*,3*"><TextBlock Classes="tableLabel" Text="Serial number" /><TextBlock Grid.Column="1" Text="{Binding SelectedDevice.SerialNumber}" FontSize="19" /></Grid></Border>
+                                <Border Classes="tableRow"><Grid ColumnDefinitions="2*,3*"><TextBlock Classes="tableLabel" Text="Operating system" /><TextBlock Grid.Column="1" Text="{Binding SelectedDevice.OperatingSystem}" FontSize="19" /></Grid></Border>
+                                <Border Classes="tableRow"><Grid ColumnDefinitions="2*,3*"><TextBlock Classes="tableLabel" Text="Site" /><TextBlock Grid.Column="1" Text="{Binding SelectedDevice.Site}" FontSize="19" /></Grid></Border>
+                                <Border Classes="tableRow" BorderThickness="0"><Grid ColumnDefinitions="2*,3*">
+                                    <TextBlock Classes="tableLabel" Text="Support tickets" />
+                                    <WrapPanel Grid.Column="1" Orientation="Horizontal">
+                                        <Button IsVisible="{Binding SelectedDevice.HasTicket}" Classes="link" Command="{Binding PlaceholderCommand}" CommandParameter="Tickets"><TextBlock Text="{Binding SelectedDevice.TicketId}" TextDecorations="Underline" FontSize="19" /></Button>
+                                        <TextBlock IsVisible="{Binding SelectedDevice.HasTicket}" Text=" · " FontSize="19" />
+                                        <TextBlock Text="{Binding SelectedDevice.TicketSummary}" FontSize="19" TextWrapping="Wrap" />
+                                    </WrapPanel>
+                                </Grid></Border>
+                            </StackPanel>
+                        </Border>
+                        <Border Classes="card" Padding="12,10,12,26" Margin="0,24,0,0">
+                            <StackPanel Spacing="18">
+                                <TextBlock Classes="sectionTitle" Text="Related actions" />
+                                <WrapPanel Orientation="Horizontal">
+                                    <Button Content="Open customer" Command="{Binding NavigateCommand}" CommandParameter="Customers" Margin="0,0,16,0" />
+                                    <Button Content="View tickets" Command="{Binding PlaceholderCommand}" CommandParameter="Tickets" />
+                                </WrapPanel>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

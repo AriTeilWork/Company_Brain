@@ -1,0 +1,47 @@
+<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:CompanyBrain.Client.ViewModels" x:Class="CompanyBrain.Client.Views.GuidesView" x:DataType="vm:MainViewModel">
+    <Border Background="White" BorderBrush="#F0ECE8" BorderThickness="1" CornerRadius="8" Margin="12,28,12,28" Padding="14,10,14,12">
+        <Grid RowDefinitions="Auto,20,Auto,30,*">
+            <TextBlock Classes="pageTitle" Text="Support guides" />
+            <Grid Grid.Row="2" ColumnDefinitions="*,18,124,110">
+                <Border Classes="searchBox">
+                    <Grid ColumnDefinitions="24,*">
+                        <Path Data="{StaticResource SearchIcon}" Stroke="#444F59" StrokeThickness="1.7" Width="22" Height="22" Stretch="Uniform" />
+                        <TextBox Grid.Column="1" Classes="searchInput" Text="{Binding GuideQuery}" PlaceholderText="Search support guides…" AutomationProperties.Name="Search support guides" />
+                    </Grid>
+                </Border>
+                <Button Grid.Column="2" Content="Search" Command="{Binding PlaceholderCommand}" CommandParameter="Search" />
+            </Grid>
+            <Grid Grid.Row="4" ColumnDefinitions="3*,16,7*">
+                <Border Classes="card" ClipToBounds="True">
+                    <Grid RowDefinitions="Auto,*">
+                        <TextBlock Classes="sectionTitle" Text="Results" Margin="16,15,16,14" />
+                        <ListBox Grid.Row="1" Classes="results" SelectedIndex="0" AutomationProperties.Name="Guide results">
+                            <ListBoxItem>
+                                <StackPanel Spacing="4">
+                                    <TextBlock Text="Loan device policy" FontSize="21" FontWeight="SemiBold" TextWrapping="Wrap" />
+                                    <TextBlock Text="Published · v2.0" Classes="muted" FontSize="19" />
+                                </StackPanel>
+                            </ListBoxItem>
+                        </ListBox>
+                    </Grid>
+                </Border>
+                <Border Grid.Column="2" Classes="card" Padding="24,15,24,28">
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <TextBlock Text="Loan device policy" Classes="detailTitle" TextWrapping="Wrap" />
+                            <TextBlock Text="Version 2.0" Classes="muted" Margin="0,6,0,32" />
+                            <TextBlock Text="Eligibility" Classes="sectionTitle" Margin="0,0,0,8" />
+                            <TextBlock Text="Check the current support agreement." TextWrapping="Wrap" LineHeight="30" />
+                            <TextBlock Text="Pickup" Classes="sectionTitle" Margin="0,30,0,8" />
+                            <TextBlock Text="Office B. Confirm availability before promising a pickup time." TextWrapping="Wrap" LineHeight="30" />
+                            <Button Classes="link" Command="{Binding PlaceholderCommand}" CommandParameter="AfterHours" Margin="0,30,0,0">
+                                <TextBlock Text="After-hours support" TextDecorations="Underline" />
+                            </Button>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>

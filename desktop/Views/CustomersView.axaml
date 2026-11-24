@@ -1,0 +1,38 @@
+<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:CompanyBrain.Client.ViewModels" x:Class="CompanyBrain.Client.Views.CustomersView" x:DataType="vm:MainViewModel">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+        <Border Background="White" CornerRadius="10" Margin="0,60,0,0" Padding="32,30,28,42" MinHeight="650">
+            <StackPanel>
+                <TextBlock Classes="pageTitle" Text="West Quay Accounting" TextWrapping="Wrap" FontSize="50" />
+                <TextBlock Text="CUST-002 · Central Office" Classes="muted" FontSize="24" Margin="2,6,0,42" />
+                <Border Classes="card" Padding="18,14,18,26">
+                    <StackPanel Spacing="25">
+                        <TextBlock Classes="sectionTitle" Text="Support agreements" FontSize="30" Margin="4,0,0,0" />
+                        <Border Classes="card" ClipToBounds="True">
+                            <Grid ColumnDefinitions="3.1*,2.8*,1.8*,2.1*" RowDefinitions="70,70">
+                                <Border Grid.ColumnSpan="4" BorderBrush="{StaticResource LineBrush}" BorderThickness="0,0,0,1" />
+                                <Border Grid.RowSpan="2" Grid.Column="0" BorderBrush="{StaticResource LineBrush}" BorderThickness="0,0,1,0" />
+                                <Border Grid.RowSpan="2" Grid.Column="1" BorderBrush="{StaticResource LineBrush}" BorderThickness="0,0,1,0" />
+                                <Border Grid.RowSpan="2" Grid.Column="2" BorderBrush="{StaticResource LineBrush}" BorderThickness="0,0,1,0" />
+                                <TextBlock Text="Premium IT support" FontSize="19" Margin="18,0" VerticalAlignment="Center" />
+                                <TextBlock Grid.Column="1" Text="AGR-002-2026B" Margin="18,0" VerticalAlignment="Center" FontSize="19" />
+                                <TextBlock Grid.Column="2" Text="Current" Foreground="{StaticResource AccentBrush}" FontWeight="Bold" Margin="18,0" VerticalAlignment="Center" />
+                                <Button Grid.Column="3" Content="Open PDF" Command="{Binding PlaceholderCommand}" CommandParameter="PDF" Margin="12,11" Padding="14,6" />
+                                <TextBlock Grid.Row="1" Text="Business IT support" FontSize="19" Margin="18,0" VerticalAlignment="Center" />
+                                <TextBlock Grid.Row="1" Grid.Column="1" Text="AGR-002-2026A" Margin="18,0" VerticalAlignment="Center" FontSize="19" />
+                                <TextBlock Grid.Row="1" Grid.Column="2" Text="Expired" Classes="muted" FontWeight="Bold" Margin="18,0" VerticalAlignment="Center" />
+                                <Button Grid.Row="1" Grid.Column="3" Content="Open PDF" Command="{Binding PlaceholderCommand}" CommandParameter="PDF" Margin="12,11" Padding="14,6" />
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+                </Border>
+                <Border Classes="card" Padding="20,14,20,28" Margin="0,28,0,0">
+                    <StackPanel Spacing="26">
+                        <TextBlock Classes="sectionTitle" Text="Registered devices" FontSize="30" />
+                        <Button Classes="link" Command="{Binding NavigateCommand}" CommandParameter="Devices"><TextBlock Text="LT-1042 · Dell Latitude 5450" TextDecorations="Underline" FontSize="22" /></Button>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Border>
+    </ScrollViewer>
+</UserControl>

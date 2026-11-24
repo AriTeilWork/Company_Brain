@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Company Brain",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "Company Brain: build",
+      "program": "${workspaceFolder}/bin/Debug/net11.0/CompanyBrain.Client.dll",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "stopAtEntry": false
+    }
+  ]
+}

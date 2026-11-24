@@ -1,0 +1,15 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="CompanyBrain.Client.App"
+             xmlns:local="using:CompanyBrain.Client"
+             RequestedThemeVariant="Light">
+
+    <Application.DataTemplates>
+        <local:ViewLocator />
+    </Application.DataTemplates>
+
+    <Application.Styles>
+        <Fluent2Theme />
+        <StyleInclude Source="avares://CompanyBrain.Client/Styles/CompanyBrain.axaml" />
+    </Application.Styles>
+</Application>
