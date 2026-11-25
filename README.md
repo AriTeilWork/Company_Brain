@@ -12,6 +12,8 @@ Company_Brain/
 
 See [Repository structure](docs/repository-structure.md) for directory responsibilities.
 
+See [Local development environment](docs/local-development.md) to run the database locally with Docker Compose.
+
 ## Desktop UI preview
 
 The Avalonia desktop mockup lives in [`desktop/`](desktop/). It includes Devices,

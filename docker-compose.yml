@@ -1,0 +1,34 @@
+# Local development stack for Company Brain.
+# Usage: copy .env.example to .env, then run `docker compose up -d`.
+# Production runs on the three LXC containers (see deploy/), not on Docker.
+
+services:
+  db:
+    image: postgres:17   # same major version as Debian 13 on the data container
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-company_brain}
+      POSTGRES_USER: ${POSTGRES_USER:-company_brain}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  # Backend service is added once the FastAPI project exists (#4).
+  # backend:
+  #   build: ./backend
+  #   env_file: .env
+  #   ports:
+  #     - "8000:8000"
+  #   depends_on:
+  #     db:
+  #       condition: service_healthy
+
+volumes:
+  pgdata:
