@@ -11,3 +11,16 @@ Company_Brain/
 ```
 
 See [Repository structure](docs/repository-structure.md) for directory responsibilities.
+
+## Desktop UI preview
+
+The Avalonia desktop mockup lives in [`desktop/`](desktop/). It includes Devices,
+Customers, Support guides and Ask screens with static sample data.
+
+Install the .NET 11 SDK, then run from the repository root:
+
+```sh
+dotnet run --project desktop/CompanyBrain.Client.csproj
+```
+
+See [desktop setup and VS Code instructions](desktop/README.md).

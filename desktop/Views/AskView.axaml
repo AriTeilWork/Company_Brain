@@ -1,0 +1,31 @@
+<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:CompanyBrain.Client.ViewModels" x:Class="CompanyBrain.Client.Views.AskView" x:DataType="vm:MainViewModel">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="30,50,26,30">
+            <TextBlock Classes="pageTitle" Text="Ask Company Brain" FontSize="48" Margin="4,0,0,28" />
+            <Grid ColumnDefinitions="*,14,132">
+                <TextBox Text="{Binding Question}" PlaceholderText="Ask a question about your devices or support…"
+                         FontSize="28" FontWeight="Medium" Padding="18,14" MinHeight="70" VerticalContentAlignment="Center"
+                         Background="White" BorderBrush="#B9BEC3" BorderThickness="1.5" CornerRadius="8"
+                         AutomationProperties.Name="Question for Company Brain" />
+                <Button Grid.Column="2" Content="Ask" FontSize="30" Command="{Binding PlaceholderCommand}" CommandParameter="Ask" />
+            </Grid>
+            <Border Classes="card" Margin="0,38,0,0" Padding="24,14,24,38">
+                <StackPanel Spacing="14">
+                    <TextBlock Text="Answer" FontSize="34" FontWeight="Bold" Foreground="{StaticResource AccentBrush}" Margin="0,0,0,3" />
+                    <TextBlock Text="The Premium agreement includes a loan laptop. [1]" FontSize="28" LineHeight="38" TextWrapping="Wrap" />
+                    <TextBlock Text="Route the request to the duty technician. [2]" FontSize="28" LineHeight="38" TextWrapping="Wrap" />
+                    <TextBlock Text="Confirm availability and pickup before making a promise. [3]" FontSize="28" LineHeight="38" TextWrapping="Wrap" />
+                </StackPanel>
+            </Border>
+            <Border Classes="card" Margin="0,30,0,0" Padding="24,14,24,28">
+                <StackPanel Spacing="13">
+                    <TextBlock Text="Sources" FontSize="34" FontWeight="Bold" Foreground="{StaticResource AccentBrush}" Margin="0,0,0,3" />
+                    <Button Classes="link" Command="{Binding NavigateCommand}" CommandParameter="Customers"><TextBlock Text="[1] Premium IT support agreement" TextDecorations="Underline" FontSize="28" TextWrapping="Wrap" /></Button>
+                    <Button Classes="link" Command="{Binding PlaceholderCommand}" CommandParameter="AfterHours"><TextBlock Text="[2] After-hours support" TextDecorations="Underline" FontSize="28" /></Button>
+                    <Button Classes="link" Command="{Binding NavigateCommand}" CommandParameter="Guides"><TextBlock Text="[3] Loan device policy" TextDecorations="Underline" FontSize="28" /></Button>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
