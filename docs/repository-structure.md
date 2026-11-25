@@ -6,6 +6,12 @@ Company Brain separates backend services, the desktop application and project do
 Company_Brain/
 ├── README.md
 ├── backend/
+│   ├── api/
+│   ├── core/
+│   ├── database/
+│   ├── models/
+│   ├── schemas/
+│   ├── services/
 │   └── README.md
 ├── desktop/
 │   └── README.md
@@ -22,6 +28,8 @@ Company_Brain/
 ## Placement rules
 
 - Keep backend implementation inside `backend/`.
+- Organize backend API, configuration, database, model, schema and service code
+  into their corresponding subdirectories.
 - Keep desktop application implementation inside `desktop/`.
 - Document component-specific setup in that component's README.
 - Keep documentation that applies to the whole project inside `docs/`, linked from the root README.
