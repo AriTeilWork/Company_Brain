@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CompanyBrain.Client.Api;
 
 namespace CompanyBrain.Client.ViewModels;
 
@@ -13,6 +14,8 @@ public sealed record DevicePreview(
 
 public partial class MainViewModel : ViewModelBase
 {
+    public ApiClient? Api { get; }
+
     public IReadOnlyList<DevicePreview> Devices { get; } =
     [
         new("LT-1042", "Dell Latitude 5450", "In use", "DL5450-8821",
@@ -48,6 +51,8 @@ public partial class MainViewModel : ViewModelBase
     public bool HasNotice => !string.IsNullOrEmpty(Notice);
 
     public MainViewModel() => SelectedDevice = Devices[0];
+
+    public MainViewModel(ApiClient api) : this() => Api = api;
 
     [RelayCommand]
     private void Navigate(string? section)
