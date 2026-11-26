@@ -12,6 +12,8 @@ Company_Brain/
 
 See [Repository structure](docs/repository-structure.md) for directory responsibilities.
 
+See [Local development environment](docs/local-development.md) to run the database locally with Docker Compose.
+
 ## Backend
 
 The initial FastAPI application lives in [`backend/`](backend/). See the
