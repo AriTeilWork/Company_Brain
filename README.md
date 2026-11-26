@@ -14,6 +14,8 @@ See [Repository structure](docs/repository-structure.md) for directory responsib
 
 See [Local development environment](docs/local-development.md) to run the database locally with Docker Compose.
 
+See [Deployment](docs/deployment.md) for what runs in each LXC container and how to deploy it.
+
 ## Backend
 
 The initial FastAPI application lives in [`backend/`](backend/). See the
