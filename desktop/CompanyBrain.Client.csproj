@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
+    <Compile Remove="Tests\**\*.cs" />
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
 

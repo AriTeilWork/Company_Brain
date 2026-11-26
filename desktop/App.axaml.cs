@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using CompanyBrain.Client.Api;
 using CompanyBrain.Client.ViewModels;
 using CompanyBrain.Client.Views;
 
@@ -17,9 +18,12 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
+            var httpClient = ApiSettings.FromEnvironment().CreateHttpClient();
+            var api = new ApiClient(httpClient);
+            desktop.Exit += (_, _) => httpClient.Dispose();
             desktop.MainWindow = new MainWindow
             {
-                DataContext = new MainViewModel(),
+                DataContext = new MainViewModel(api),
             };
         }
 

@@ -1,80 +1,80 @@
-# Company Brain desktop application
+# Company Brain desktop
 
-Desktop client built with Avalonia UI 12.2.0, C#, XAML and CommunityToolkit.Mvvm.
-It targets .NET 11 and uses Fluent 2, the Inter font and a custom light theme
-based on the four supplied Company Brain references.
-
-## Visual preview
-
-- Devices: sample device list, selection, details and related actions.
-- Customers: sample customer, support agreements and registered device link.
-- Support guides: sample results list and loan-device policy.
-- Ask: editable sample question, static sample answer and source links.
-
-Sidebar navigation and related screen links work locally. Search, agreement
-PDFs, ticket details and AI answers are placeholders. Activating a placeholder
-shows a dismissible notice; no backend or external service is contacted.
-
-The top-right controls minimize, maximize/restore and close the window. Drag
-the empty top strip to move the window, or double-click it to maximize/restore.
+Avalonia UI 12.2.0, .NET 11, C# and CommunityToolkit.Mvvm.
+The screens use sample data; their API integrations are tracked in #48–51.
 
 ## Build and run
 
-From this directory in PowerShell:
+From `desktop/` in PowerShell:
 
 ```powershell
 .\dotnet.ps1 restore
-.\dotnet.ps1 build --no-restore
-.\dotnet.ps1 run --no-build
+.\dotnet.ps1 build CompanyBrain.Client.sln --no-restore
+.\dotnet.ps1 run --project CompanyBrain.Client.csproj --no-build
 ```
 
-The wrapper uses the SDK downloaded to `../.local/dotnet-sdk` when available,
-and otherwise uses an installed .NET SDK. `global.json` selects stable .NET 11
-SDKs. The local SDK and package caches are ignored by Git. On another machine,
-install .NET 11 SDK first; then standard `dotnet restore`, `dotnet build` and
-`dotnet run` also work. On Linux/macOS, use the standard .NET commands.
+`dotnet.ps1` prefers the SDK in `../.local/dotnet-sdk`, then the installed SDK.
+`global.json` selects .NET 11. On Linux/macOS, use `dotnet` instead of the wrapper.
+Backend setup: [backend/README.md](../backend/README.md).
 
-## Structure
+## API
 
-- `App.axaml`: theme and view templates.
-- `Views/MainWindow.axaml`: sidebar, window controls and screen container.
-- `Views/*View.axaml`: four placeholder screens.
-- `Styles/CompanyBrain.axaml`: shared colors, typography and control states.
-- `Styles/Icons.axaml`: geometry from MIT-licensed icon libraries.
-- `Assets/Icons/`: original Tabler/Heroicons SVG sources and licenses.
-- `ViewModels/MainViewModel.cs`: local screen state and sample data.
-- `Models/`: reserved for application models.
-- `Program.cs`: desktop application startup.
+Default: `http://127.0.0.1:8000/api/v1/`. To use the gateway, set its public
+address and port before launching:
+
+```powershell
+$env:COMPANY_BRAIN_API_BASE_URL = 'http://<gateway-address>:<public-web-port>/api/v1/'
+.\dotnet.ps1 run --project CompanyBrain.Client.csproj
+```
+
+Use the same environment variable in an IDE or packaged app. Unset it to
+restore the default. The URL includes the API prefix; a trailing slash is added.
+
+`App` owns one `ApiClient` for the application lifetime and passes it to
+`MainViewModel`. Reuse it in feature view models.
+
+Await `GetAsync<T>(path, cancellationToken)` with relative paths such as
+`customers?limit=20&offset=0`. Escape IDs/query values with `Uri.EscapeDataString`.
+DTOs use snake_case JSON; lists use `ListResponse<T>`.
+
+`ApiException` exposes `Kind`, `StatusCode` and JSON `Detail`. Caller cancellation
+propagates as `OperationCanceledException`; timeout is 30 seconds.
+
+## Tests
+
+HTTP, view-model and headless UI tests run without a server or visible window:
+
+```powershell
+.\dotnet.ps1 test CompanyBrain.Client.sln --filter 'TestCategory!=Integration'
+```
+
+For UI tests only, use `--filter 'TestCategory=UI'`.
+
+Collect coverage for the desktop assembly (including its HTTP layer):
+
+```powershell
+.\dotnet.ps1 test CompanyBrain.Client.sln --filter 'TestCategory!=Integration' --settings Tests/coverage.runsettings --collect 'Code Coverage' --results-directory ../.local/results/coverage
+```
+
+Cobertura reports stay outside Git. UI tests check controls and bindings.
+
+For the backend smoke check, start FastAPI first, then run:
+
+```powershell
+$env:COMPANY_BRAIN_SMOKE_BASE_URL = 'http://127.0.0.1:8000/'
+.\dotnet.ps1 test CompanyBrain.Client.sln --filter 'TestCategory=Integration'
+```
+
+The smoke check reads `GET /`; it is skipped when its URL is unset.
 
 ## VS Code
 
-Open the `desktop` directory as your VS Code folder. The required extensions are
-listed in `.vscode/extensions.json`: C#, C# Dev Kit and Avalonia for VSCode.
+Open `desktop/` and install the extensions in `.vscode/extensions.json`.
+Install .NET 11 system-wide for C# Dev Kit and the Avalonia previewer.
+Use `Ctrl+Shift+B` to build, `F5` to debug, or the `Company Brain: run` task.
 
-For C# Dev Kit project loading and the Avalonia XAML previewer on Windows,
-install .NET 11 SDK system-wide using Microsoft's installer, then reload VS Code.
-The local SDK is sufficient for `dotnet.ps1`, but editor extensions can launch
-their own processes using the system .NET installation.
+## Assets
 
-- `Ctrl+Shift+B`: build the client.
-- `F5`: build and debug using the `Company Brain` configuration.
-- `Terminal > Run Task > Company Brain: run`: build and run without debugging.
-
-`CompanyBrain.Client.sln` uses a relative project path. `global.json` selects
-.NET 11. The debugger uses the system .NET installation. The build task uses
-`dotnet.ps1`, with its local-SDK preference and installed-SDK fallback.
-
-Backend code belongs in [`../backend/`](../backend/). Shared documentation belongs
-in [`../docs/`](../docs/).
-
-This is a visual prototype; backend integration is not configured yet.
-Only the free framework packages and CommunityToolkit are referenced. Optional
-Avalonia diagnostics tooling was removed from the generated template.
-
-## References and assets
-
-- [Avalonia](https://avaloniaui.net/avalonia)
-- [.NET 11 SDK](https://dotnet.microsoft.com/download/dotnet/11.0)
-- [Tabler Icons](https://github.com/tabler/tabler-icons) and
-  [Heroicons](https://github.com/tailwindlabs/heroicons): MIT-licensed icon sources;
-  the original SVGs and license notices are included in `Assets/Icons/`.
+The UI uses Fluent 2 and Inter. MIT-licensed [Tabler](https://github.com/tabler/tabler-icons)
+and [Heroicons](https://github.com/tailwindlabs/heroicons) sources and notices
+are in `Assets/Icons/`.

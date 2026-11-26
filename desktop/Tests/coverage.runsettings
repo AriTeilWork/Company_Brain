@@ -1,0 +1,19 @@
+<RunSettings>
+  <DataCollectionRunSettings>
+    <DataCollectors>
+      <DataCollector friendlyName="Code Coverage">
+        <Configuration>
+          <Format>Cobertura</Format>
+          <CodeCoverage>
+            <ModulePaths>
+              <Include>
+                <ModulePath>.*CompanyBrain\.Client\.dll$</ModulePath>
+              </Include>
+            </ModulePaths>
+            <IncludeTestAssembly>false</IncludeTestAssembly>
+          </CodeCoverage>
+        </Configuration>
+      </DataCollector>
+    </DataCollectors>
+  </DataCollectionRunSettings>
+</RunSettings>
