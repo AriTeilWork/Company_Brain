@@ -75,3 +75,25 @@ The shared synchronous engine and request-scoped session dependency are in
 for usage, transaction ownership, and a read-only `SELECT 1` check against the
 existing development database. Installing the pinned requirements supplies
 SQLAlchemy and Psycopg 3 with its bundled PostgreSQL client libraries.
+
+## Database migrations
+
+Alembic uses the backend's `DATABASE_URL` and `Base.metadata`.
+Run from `backend/` after installing requirements and configuring the database.
+On Linux/macOS, replace `.\.venv\Scripts\python.exe` with `.venv/bin/python`.
+
+```powershell
+.\.venv\Scripts\python.exe -m alembic current
+.\.venv\Scripts\python.exe -m alembic history
+.\.venv\Scripts\python.exe -m alembic upgrade head
+.\.venv\Scripts\python.exe -m alembic revision --autogenerate -m "Add customer table"
+.\.venv\Scripts\python.exe -m alembic downgrade -1
+```
+
+Models inherit `database.base.Base`; import their modules in `models/__init__.py`.
+Review generated revisions before applying them; downgrades can remove data.
+Omit `--autogenerate` for a handwritten revision. From the repository root,
+pass `-c backend/alembic.ini`.
+
+Revision `0001` creates only `alembic_version`, without domain tables.
+Migrations are manual and do not run during API startup.
