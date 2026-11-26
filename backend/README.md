@@ -67,3 +67,11 @@ Use the settings in code with `from core.config import get_settings`.
 Settings load on first use, so the API and `/docs` start without a database.
 A missing or invalid `DATABASE_URL` raises a validation error that does not
 include the password.
+
+## PostgreSQL sessions
+
+The shared synchronous engine and request-scoped session dependency are in
+[`database/session.py`](database/session.py). See [database setup and checks](database/README.md)
+for usage, transaction ownership, and a read-only `SELECT 1` check against the
+existing development database. Installing the pinned requirements supplies
+SQLAlchemy and Psycopg 3 with its bundled PostgreSQL client libraries.
