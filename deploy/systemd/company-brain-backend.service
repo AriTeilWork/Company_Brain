@@ -1,0 +1,20 @@
+# Company Brain backend (LXC 2, harri-lamp-23, 10.0.3.123)
+# Installed at: /etc/systemd/system/company-brain-backend.service
+# Apply:        systemctl daemon-reload && systemctl enable --now company-brain-backend
+# Secrets:      /etc/company-brain/backend.env (DATABASE_URL, chmod 600, not in Git)
+
+[Unit]
+Description=Company Brain backend (FastAPI)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=companybrain
+Group=companybrain
+WorkingDirectory=/opt/company-brain/backend
+EnvironmentFile=/etc/company-brain/backend.env
+ExecStart=/opt/company-brain/.venv/bin/python -m uvicorn main:app --host 10.0.3.123 --port 8000 --proxy-headers --forwarded-allow-ips 10.0.3.122
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
