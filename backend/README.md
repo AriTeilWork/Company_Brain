@@ -40,6 +40,7 @@ python3.13 -m venv .venv
 API: <http://127.0.0.1:8000/>.
 Swagger UI: <http://127.0.0.1:8000/docs>.
 OpenAPI: <http://127.0.0.1:8000/openapi.json>.
+Health check: `GET /api/v1/health` returns `{"status": "healthy"}`.
 
 Stop with `Ctrl+C`. Use `--reload` only during development.
 
