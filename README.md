@@ -14,6 +14,12 @@ See [Repository structure](docs/repository-structure.md) for directory responsib
 
 See [Local development environment](docs/local-development.md) to run the database locally with Docker Compose.
 
+## Backend
+
+The initial FastAPI application lives in [`backend/`](backend/). See the
+[backend setup and run instructions](backend/README.md) to start Uvicorn and
+open Swagger UI at `/docs`.
+
 ## Desktop UI preview
 
 The Avalonia desktop mockup lives in [`desktop/`](desktop/). It includes Devices,
