@@ -42,3 +42,27 @@ Swagger UI: <http://127.0.0.1:8000/docs>.
 OpenAPI: <http://127.0.0.1:8000/openapi.json>.
 
 Stop with `Ctrl+C`. Use `--reload` only during development.
+
+## Configuration
+
+Settings are defined in [`core/config.py`](core/config.py) and loaded from
+environment variables. Locally they are also read from the repository root
+`.env` (copy [`.env.example`](../.env.example)). Real environment variables take
+precedence over `.env`.
+
+| Variable | Required | Description |
+| --- | --- | --- |
+| `DATABASE_URL` | Yes, when the database is used | PostgreSQL URL, `postgresql://user:password@host:5432/database` |
+
+Choose the host for where the backend runs:
+
+| Environment | Where the value is set | Host |
+| --- | --- | --- |
+| Local (uvicorn on your machine) | Repository root `.env` | `localhost` |
+| Docker Compose | Compose environment / `.env` | `db` |
+| LXC deployment | `/etc/company-brain/backend.env` | `10.0.3.124` |
+
+Use the settings in code with `from core.config import get_settings`.
+Settings load on first use, so the API and `/docs` start without a database.
+A missing or invalid `DATABASE_URL` raises a validation error that does not
+include the password.
