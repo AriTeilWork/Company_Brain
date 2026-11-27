@@ -12,7 +12,7 @@ Company_Brain/
 
 See [Repository structure](docs/repository-structure.md) for directory responsibilities.
 
-See [Local development environment](docs/local-development.md) to run the database locally with Docker Compose.
+See [Local development environment](docs/local-development.md) to run PostgreSQL and the FastAPI backend locally with Docker Compose.
 
 See [Deployment](docs/deployment.md) for what runs in each LXC container and how to deploy it.
 
