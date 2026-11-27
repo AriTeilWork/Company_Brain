@@ -19,7 +19,10 @@ documentation in [`../docs/`](../docs/).
 
 ## Local development
 
-Run from `backend/`.
+To run the backend and PostgreSQL together in Docker Compose, follow the
+[local development setup](../docs/local-development.md).
+
+To run Uvicorn directly on your machine, use the commands below from `backend/`.
 
 ### Windows PowerShell
 
@@ -60,7 +63,7 @@ Choose the host for where the backend runs:
 | Environment | Where the value is set | Host |
 | --- | --- | --- |
 | Local (uvicorn on your machine) | Repository root `.env` | `localhost` |
-| Docker Compose | Compose environment / `.env` | `db` |
+| Docker Compose | Derived from `POSTGRES_*` or overridden by `COMPOSE_DATABASE_URL` in repository root `.env` | `db` |
 | LXC deployment | `/etc/company-brain/backend.env` | `10.0.3.124` |
 
 Use the settings in code with `from core.config import get_settings`.
