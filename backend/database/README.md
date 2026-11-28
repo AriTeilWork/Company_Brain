@@ -57,3 +57,7 @@ Unit tests use an isolated in-memory SQLite database and require no credentials.
 PostgreSQL integration checks are opt-in: set `COMPANY_BRAIN_TEST_POSTGRES=1`
 to test `SELECT 1` and recovery after a failed transaction against the configured
 development database. They execute no DDL or persistent writes.
+Set `COMPANY_BRAIN_TEST_POSTGRES_MIGRATIONS=1` to additionally verify migrations
+and guide revision constraints in a temporary schema on the configured
+PostgreSQL database. The database user must have permission to create schemas.
+The test drops only its own schema after verification.
