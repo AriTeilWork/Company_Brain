@@ -96,4 +96,10 @@ Omit `--autogenerate` for a handwritten revision. From the repository root,
 pass `-c backend/alembic.ini`.
 
 Revision `0001` creates only `alembic_version`, without domain tables.
+Revision `0044_support_guide_revisions` adds `support_guide_revisions`, keyed
+by `(guide_id, version)`. Markdown bodies are stored as text with their original
+relative links; `source_path` is relative to the guide root (for example,
+`current/loan-device-policy-v2.md`). Effective dates are inclusive, and a
+published revision requires an effective start. Archived and draft revisions
+can coexist with published revisions.
 Migrations are manual and do not run during API startup.
